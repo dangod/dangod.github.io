@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://dangod.github.io">
-  <title>Archives | 阿蛋的blog</title>
+  <title>在Flask中操作数据库 | 阿蛋的blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="阿蛋的blog">
-<meta property="og:url" content="https://dangod.github.io/archives/index.html">
+  <meta name="description" content="前言Web程序最常用基于关系模型的数据库，这种数据库也称为SQL数据库，因为它们使用结构化查询语言。关系型数据库把数据存储在表中，表模拟程序中的不同实体。简单来说，关系模型指的就是二维表格模型，而一个关系型数据库就是由二维表及其之间的联系所组成的一个数据组织。">
+<meta name="keywords" content="pyhton,web开发,flask">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在Flask中操作数据库">
+<meta property="og:url" content="https://dangod.github.io/2017/04/20/在Flask中操作数据库/index.html">
 <meta property="og:site_name" content="阿蛋的blog">
+<meta property="og:description" content="前言Web程序最常用基于关系模型的数据库，这种数据库也称为SQL数据库，因为它们使用结构化查询语言。关系型数据库把数据存储在表中，表模拟程序中的不同实体。简单来说，关系模型指的就是二维表格模型，而一个关系型数据库就是由二维表及其之间的联系所组成的一个数据组织。">
+<meta property="og:updated_time" content="2017-04-24T07:03:38.385Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="阿蛋的blog">
+<meta name="twitter:title" content="在Flask中操作数据库">
+<meta name="twitter:description" content="前言Web程序最常用基于关系模型的数据库，这种数据库也称为SQL数据库，因为它们使用结构化查询语言。关系型数据库把数据存储在表中，表模拟程序中的不同实体。简单来说，关系模型指的就是二维表格模型，而一个关系型数据库就是由二维表及其之间的联系所组成的一个数据组织。">
   
     <link rel="alternative" href="/atom.xml" title="阿蛋的blog" type="application/atom+xml">
   
@@ -153,36 +158,150 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-在Flask中操作数据库" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      在Flask中操作数据库
+    </h1>
+  
+
+        
+        <a href="/2017/04/20/在Flask中操作数据库/" class="archive-article-date">
+  	<time datetime="2017-04-19T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-20</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Web程序最常用基于关系模型的数据库，这种数据库也称为SQL数据库，因为它们使用结构化查询语言。关系型数据库把数据存储在表中，表模拟程序中的不同实体。简单来说，关系模型指的就是二维表格模型，而一个关系型数据库就是由二维表及其之间的联系所组成的一个数据组织。<br><a id="more"></a><br>关系模型中常用的概念：</p>
+<p>关系：可以理解为一张二维表，每个关系都具有一个关系名，就是通常说的表名。</p>
+<p>元组：可以理解为二维表中的一行，在数据库中经常被称为记录。</p>
+<p>属性：可以理解为二维表中的一列，在数据库中经常被称为字段。</p>
+<p>域：属性的取值范围，也就是数据库中某一列的取值限制。</p>
+<p>关键字：一组可以唯一标识元组的属性，数据库中常称为主键，由一个或多个列组成。<br>关系模式：指对关系的描述。其格式为：关系名(属性1，属性2， … … ，属性N)，在数据库中称为表结构。</p>
+<h2 id="Python数据库框架"><a href="#Python数据库框架" class="headerlink" title="Python数据库框架"></a>Python数据库框架</h2><p>由于我们使用的是Flask框架来搭建我们的Web应用，因此选用集成了Flask的数据库框架对我们来说是最合适，也是最节省时间的。因此，选择Flask-SQLAlchemy扩展来实现，这个扩展包装了SQLAlchemy框架。</p>
+<h3 id="Flask-SQLAlchemy框架的配置"><a href="#Flask-SQLAlchemy框架的配置" class="headerlink" title="Flask-SQLAlchemy框架的配置"></a>Flask-SQLAlchemy框架的配置</h3><p>下面是Flask-SQLAlchemy中常用的配置值。Flask-SQLAlchemy从Flask主配置中加载这些值。注意其中的一些在引擎创建后不能修改，所以确保尽早配置且不在运行时修改它们。</p>
+<p>SQLALCHEMY_DATABASE_URI：用于数据库的连接，例如sqlite:////tmp/test.db</p>
+<p>SQLALCHEMY_TRACK_MODIFICATIONS：如果设置成True(默认情况)，Flask-SQLAlchemy将会追踪对象的修改并且发送信号。这需要额外的内存，如果不必要的可以禁用它。</p>
+<p>SQLALCHEMY_COMMIT_ON_TEARDOWN：每次request自动提交db.session.commit()</p>
+<p>在这里我们只列出了在Imatation-weibo程序中需要使用的配置键，更多的配置键请参考Flask-SQLAlchemy官方文档。</p>
+<p>常见数据库的连接URI格式如下所示：</p>
+<p>Postgres：postgresql://scott:tiger@localhost/mydatabase</p>
+<p>MySQL：mysql://scott:tiger@localhost/mydatabase</p>
+<p>Oracle：oracle://scott:tiger@127.0.0.1:1521/sidname</p>
+<p>SQLite：sqlite:////absolute/path/to/foo.db</p>
+<h3 id="Flask-SQLAlchemy框架的初始化"><a href="#Flask-SQLAlchemy框架的初始化" class="headerlink" title="Flask-SQLAlchemy框架的初始化"></a>Flask-SQLAlchemy框架的初始化</h3><p>常见情况下，对于只有一个Flask应用，我们需要先创建Flask应用，选择加载配置，然后创建SQLAlchemy对象时候把Flask应用传递给它作为参数。一旦创建，这个对象就包含 sqlalchemy 和 sqlalchemy.orm 中的所有函数和助手。此外它还提供一个名为 Model 的类，用于作为声明模型时的 delarative 基类。</p>
+<p>创建并初始化Flask-SQLAlchemy，当然由于我们的程序使用了工厂函数，因此，我们在这里也用之前初始化Flask-Bootstrap扩展一样的方法来实现它：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">from flask.ext.sqlalchemy import SQLAlchemy</div><div class="line">db = SQLAlchemy</div><div class="line">def create_app(config_name):</div><div class="line">    #省略号部分包含了创建app等代码，请查看前面的章节</div><div class="line">    ...</div><div class="line">    db.init_app(app)</div></pre></td></tr></table></figure>
+<h2 id="声明模型"><a href="#声明模型" class="headerlink" title="声明模型"></a>声明模型</h2><h3 id="创建数据库模型"><a href="#创建数据库模型" class="headerlink" title="创建数据库模型"></a>创建数据库模型</h3><p>创建数据库模型的方法如下，创建表时必须导入基类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">class User(db.Model):</div><div class="line">    id = db.Column(db.Integer, primary_key=True)</div><div class="line">    username = db.Column(db.String(64), unique=True, index=True)</div><div class="line">    def __repr__(self):</div><div class="line">        return &apos;&lt;User %r&gt;&apos; % self.username</div></pre></td></tr></table></figure>
+<p>这个模型创建了两个字段，他们是类db.Column的实例，id和username，db.Column 类构造函数的第一个参数是数据库列和模型属性的类型，下面列出了一些常见的列类型以及在模型中使用的Python类型。</p>
+<ul>
+<li>Integer：普通整数，一般是32bit</li>
+<li>Text：变长字符串，对较长或不限长度的字符做了优化</li>
+<li>Text：变长字符串，对较长或不限长度的字符做了优化</li>
+<li>Boolean：布尔值</li>
+<li>Date：日期</li>
+<li>DateTime：日期和时间</li>
+<li>db.Column 中其余的参数指定属性的配置选项。下面列出了一些常用选项：</li>
+<li>primary_key：如果设置为True，这列就是表的主键</li>
+<li>unique：如果设置为True，这列不允许出现重复的值</li>
+<li>index：如果设置为True，为这列创建索引，提升查询效率</li>
+<li>default：为这列定义默认值</li>
+</ul>
+<h3 id="一对多关系"><a href="#一对多关系" class="headerlink" title="一对多关系"></a>一对多关系</h3><p>最为常见的关系就是一对多关系，因为关系在它们建立之前就已经声明。关系使用relationship()函数表示，外键使用类sqlalchemy.schema.ForeignKey来单独声明。</p>
+<p>在一对多关系中，要在”多”这一侧加入一个外键，指向”一”这一侧联接的记录，即relationship()声明出现在代表”少”那个类，而外键声明出现在代表”多”的那个类中。如下代码所示，每一个人(少)可以有多个地址(多)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">class Person(db.Model):</div><div class="line">    id = db.Column(db.Integer, primary_key=True)</div><div class="line">    address = db.relationship(&apos;Address&apos;, backref=&apos;person&apos;, lazy=&apos;dynamic&apos;)</div><div class="line">class Address(db.Model):</div><div class="line">    id = db.Column(db.Integer, primary_key=True)</div><div class="line">    person_id = db.Column(db.Integer, db.ForeignKey(&apos;person.id&apos;))</div></pre></td></tr></table></figure>
+<p>关系使用address表中的外键连接了两行。添加到address模型中person_id列被定义为外键，就是这个外键建立起了联系。传给db.ForeignKey()的参数’person_id’表明，这一列的值是person表中行的id值。</p>
+<p>添加到person表中的address属性代表这个关系的面向对象视角。对于一个person实例，其address属性将返回与person相关联的多个地址。db.relationship()的第一个参数表明这个关系的另一端是哪个模型。</p>
+<p>db.relationship()中的backref参数向address模型中添加一个person属性，从而定义反向关系。这一属性可替代person_id访问 person模型，此时获取的是模型对象，而不是外键的值。</p>
+<p>大多数情况下，db.relationship()都能自行找到关系中的外键，但有时却无法决定把哪一列作为外键。例如如果address模型中有两个或以上的列定义为person模型的外键，<br>SQLAlchemy就不知道该使用哪列。如果无法决定外键，你就要为db.relationship()提供额外参数，从而确定所用外键，常用的配置选项如下所示：</p>
+<ul>
+<li>backref：在关系的另一个模型中添加反向引用</li>
+<li>primaryjoin：明确指定两个模型之间使用的联结条件。只在模棱两可的关系中需要指定</li>
+<li>lazy：决定了SQLAlchemy什么时候从数据库中加载数据。可选值有 select(首次访问时按需加载)、immediate(源对象加</li>
+<li>载后就加载)、 joined(加载记录，但使用联结)、 subquery (立即加载，但使用子查询)，</li>
+<li>noload(永不加载)和 dynamic(不加载记录，但提供加载记录的查询)</li>
+<li>uselist：如果设为Fales，表示一对一关系</li>
+<li>order_by：指定关系中记录的排序方式</li>
+<li>secondary：指定多对多关系中关系表的名字</li>
+</ul>
+<p>secondaryjoin：SQLAlchemy无法自行决定时，指定多对多关系中的二级联结条件<br>如果想为反向引用(backref)定义惰性(lazy)状态，可以使用backref()函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">class Person(db.Model):</div><div class="line">    id = db.Column(db.Integer, primary_key=True)</div><div class="line">    address = db.relationship(&apos;Address&apos;,</div><div class="line">        backref=db.badkref(&apos;person&apos;, lazy=&apos;joined&apos;),</div><div class="line">        lazy=&apos;dynamic&apos;)</div></pre></td></tr></table></figure>
+<h3 id="多对多关系"><a href="#多对多关系" class="headerlink" title="多对多关系"></a>多对多关系</h3><p>一对多关系，一对一关系至少有一侧是单个实体，所以记录之间的联系可以通过外键来实现，让外键指向这个实体。但是两侧都是多的关系，显然不能通过一个简单的外键来实现。解决办法是添加第三张表。</p>
+<p>多对多关系一个典型的例子是文章与标签之间的关系，一篇文章可以有多个标签，一个标签也可以对应多篇文章。</p>
+<p>我们把tags和posts表之间的多对多关系转换成它们各自与关联表connections之间的两个一对多关系。</p>
+<p>查询这个多对多关系分为两步。若想知道某篇文章有多少个标签，首先从posts和connections之间的一对多关系开始，获取这篇文章在connections表中的所有和这篇文章相关的记录，然后再按照多到一的关系在tags表中查找对应的所有标签。</p>
+<p>同样，若想查找某个标签所对应的所有文章，首先从tags表和connections表之间的一对多关系开始，获取这个标签在connections表中所有的和这个标签相关的记录，然后再按照多到一的关系在posts表中查找对应的所有文章。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">connections = db.Table(&apos;connections&apos;,</div><div class="line">    db.Column(&apos;posts_id&apos;, db.Integer, db.ForeignKey(&apos;posts_id&apos;)),</div><div class="line">    db.Column(&apos;tags_id&apos;, db.Integer, db.ForeignKey(&apos;tags_id&apos;)))</div><div class="line">class Post(db.Model):</div><div class="line">    __tablename__ = &apos;posts&apos;</div><div class="line">    id = db.Column(db.Integer, primary_key=True)</div><div class="line">    tags = db.relationship(&apos;Tag&apos;, secondary=connections,</div><div class="line">        backref=db.backref(&apos;posts&apos;, lazy=&apos;dynamic&apos;),</div><div class="line">        lazy=&apos;dynamic&apos;)</div><div class="line">class Tag(db.Model):</div><div class="line">    __tablename__ = &apos;tags&apos;</div><div class="line">    id = db.Column(db.Integer, primary_key=True)</div></pre></td></tr></table></figure>
+<p>多对多关系仍使用定义一对多关系的db.relationship()方法进行定义，但在多对多关系中，必须把secondary参数设为关联表。多对多关系可以在任何一个类中定义，backref参数会处理好关系的另一侧。关联表connections就是一个简单的表，不是模型，SQLAlchemy会自动接管这个表。</p>
+<h3 id="自引用关系"><a href="#自引用关系" class="headerlink" title="自引用关系"></a>自引用关系</h3><p>多对多关系在我们的Web应用中可以用来实现用户之间的关注，但是在上面的文章和标签的例子中，关联表连接的是两个明确的实体，而在用户关注其他用户时，都在users表内，只有一个实体。如果关系中的两侧都在同一个表中，这种关系称为自引用关系。在关注中，关系的左侧是用户实体，称为”关注者”；右侧也是用户实体，称为”被关注者”。<br>这种用户之间关注的关系，我们依然可以使用上面的方法来实现。</p>
+<h3 id="高级多对多关系"><a href="#高级多对多关系" class="headerlink" title="高级多对多关系"></a>高级多对多关系</h3><p>自引用多对多关系可在数据库中表示用户之间的关注，但却有个限制。使用多对多关系时，往往需要存储所联两个实体之间的额外信息。对用户之间的关注来说，可以存储用户关注另一个用户的日期，这样就能按照时间顺序列出所有关注者。这种信息只能存储在关联表中，但是在之前实现的学生和课程之间的关系中，关联表完全是由SQLAlchemy掌控的内部表。</p>
+<p>为了能在关系中处理自定义的数据，我们必须提升关联表的地位，使其变成程序可访问的模型。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">class Follow(db.Model):</div><div class="line">    __tablename__ = &apos;follows&apos;</div><div class="line">    follower_id = db.Column(db.Integer, db.ForeignKey(&apos;users.id&apos;), primary_key=True)</div><div class="line">    followed_id = db.Column(db.Integer, db.Foreignkey(&apos;users.id&apos;), primary_key=True)</div><div class="line">    timestamp = db.Column(db.DateTime, default=datetime.utcnow)</div></pre></td></tr></table></figure>
+<p>SQLAlchemy不能直接使用这个关联表，因为如果这么做程序就无法访问其中的自定义字段。相反地，要把这个多对多关系的左右两侧拆分成两个基本的一对多关系，而且要定义成标准的关系。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">class User(db.Model):</div><div class="line">    __tablename__ = &apos;users&apos;</div><div class="line">    id = db.Column(db.Integer, primary_key=True)</div><div class="line">    followed = db.relationship(&apos;Follow&apos;, foreign_keys=[Follow.follower_id],</div><div class="line">        backref=db.backref(&apos;follower&apos;, lazy=&apos;joined&apos;),</div><div class="line">        lazy=&apos;dynamic&apos;, cascade=&apos;all, delete-orphan&apos;)</div><div class="line">    follower = db.relationship(&apos;Follow&apos;, foreign_keys=[Follow.followed_id],</div><div class="line">        backref=db.backref(&apos;followed&apos;, lazy=&apos;joined&apos;),</div><div class="line">        lazy=&apos;dynamic&apos;, cascade=&apos;all, delete-orphan&apos;)</div></pre></td></tr></table></figure>
+<p>followd和follower都定义为单独的一对多关系，为了消除外键之间的歧义，定义关系时必须选用可选参数foreign_keys指定外键。而且，db.backref()不指定这两个关系之间的引用关系，而是回引Follow模型。</p>
+<p>回引中的 lazy 参数指定为joined。这个lazy模式可以实现立即从联结查询中加载相关对象。例如，如果某个用户关注了100个用户，调用user.followed.all()后会返回一个列表，其中包含100个Follow实例，每一个实例的follower和followed回引属性都指向相应的用户。设定为lazy=’joined’模式，就可在一次数据库查询中完成这些操作。如果把lazy设为默认值select，那么首次访问follower和followed属性时才会加载对应的用户，而且每个属性都需要一个单独的查询，这就意味着获取全部被关注用户时需要增加100次额外的数据库查询。</p>
+<p>这两个关系中，User一侧设定的lazy参数作用不一样。lazy参数都在“一”这一侧设定，返回的结果是“多”这一侧中的记录。上述代码使用的是dynamic，因此关系属性不会直接返回记录，而是返回查询对象，所以在执行查询之前还可以添加额外的过滤器。</p>
+<p>cascade 参数配置在父对象上执行的操作对相关对象的影响。比如，层叠选项可设定为：将用户添加到数据库会话后，要自动把所有关系的对象都添加到会话中。层叠选项的默认值能满足大多数情况的需求，但对这个多对多关系来说却不合用。删除对象时，默认的层叠行为是把对象联接的所有相关对象的外键设为空值。但在关联表中，删除记录后正确的行为应该是把指向该记录的实体也删除，因为这样能有效销毁联接。这就是层叠选项值delete-orphan的作用。</p>
+<h3 id="操作数据库"><a href="#操作数据库" class="headerlink" title="操作数据库"></a>操作数据库</h3><p>我们可以在shell模式下进行这些操作。</p>
+<p>注意：需要完成Chapter5的内容才能来操作这些命令，因为需要在manage.py文件中加入数据库的代码才能在shell中运行db实例。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python manage.py shell</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">#创建表</div><div class="line">db.create_all()</div><div class="line">#删除表</div><div class="line">db.drop_all()</div><div class="line">#插入行</div><div class="line">user_john=User(username=&apos;john&apos;)</div><div class="line">#添加到数据库会话</div><div class="line">db.session.add(user_john)</div><div class="line">#提交</div><div class="line">db.session.commit()</div><div class="line">#删除行</div><div class="line">db.session.delete(user_john)</div><div class="line">db.session.commit()</div><div class="line">#查询行</div><div class="line">User.query.all()</div></pre></td></tr></table></figure>
+<p>使用过滤器可以配置query对象进行更精确的数据库查询。下面列出常用的过滤器，完整的列表请参见SQLAlchemy官方文档：</p>
+<ul>
+<li>filter()：把过滤器添加到原查询上，返回一个新查询</li>
+<li>filter_by()：把等值过滤器添加到原查询上，返回一个新查询</li>
+<li>limit()：使用指定的值限制原查询返回的结果数量，返回一个新查询</li>
+<li>offset()：偏移原查询返回的结果，返回一个新查询</li>
+<li>order_by()：根据指定条件对原查询结果进行排序，返回一个新查询</li>
+<li>group_by()：根据指定条件对原查询结果进行分组，返回一个新查询</li>
+</ul>
+<p>在查询上应用指定的过滤器后，通过调用all()执行查询，以列表的形式返回结果。除了all()之外，还有其他方法能触发查询执行。下面列出常用的执行查询方法：</p>
+<ul>
+<li>all()：以列表形式返回查询的所有结果</li>
+<li>first()：返回查询的第一个结果，如果没有结果，则返回 None</li>
+<li>first_or_404()：返回查询的第一个结果，如果没有结果，则终止请求，返回 404 错误响应</li>
+<li>get()：返回指定主键对应的行，如果没有对应的行，则返回 None</li>
+<li>get_or_404()：返回指定主键对应的行，如果没找到指定的主键，则终止请求，返回 404 错误响应</li>
+<li>count()：返回查询结果的数量</li>
+<li>paginate()：返回一个 Paginate 对象，它包含指定范围内的结果</li>
+</ul>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/04/20/Flask-Login的使用/" class="archive-article-date">
-  	<time datetime="2017-04-19T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/04/20/Flask-Login的使用/">在Flask中操作数据库</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -202,7 +321,7 @@
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -215,240 +334,90 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://dangod.github.io/2017/04/20/在Flask中操作数据库/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/04/20/Flask入门小结/" class="archive-article-date">
-  	<time datetime="2017-04-19T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-20</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/04/20/Flask入门小结/">在Flask中操作数据库</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">pyhton</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">web开发</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">flask</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/pythonflask/" class="article-tag-list-link color3">python flask</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/04/20/在Flask中操作数据库/" class="archive-article-date">
-  	<time datetime="2017-04-19T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/04/20/在Flask中操作数据库/">在Flask中操作数据库</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">pyhton</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">web开发</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">flask</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/pythonflask/" class="article-tag-list-link color3">python flask</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/04/10/自动获取文件里IP的shell脚本/" class="archive-article-date">
-  	<time datetime="2017-04-09T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/04/10/自动获取文件里IP的shell脚本/">自动获取文件里IP的shell脚本</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">运维</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/分配IP脚本/" class="article-tag-list-link color2">分配IP脚本</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/04/08/HTTP简介/" class="archive-article-date">
-  	<time datetime="2017-04-07T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/04/08/HTTP简介/">Http简介</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">http</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/http协议/" class="article-tag-list-link color2">http协议</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+    <a href="/2017/04/20/Flask入门小结/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          在Flask中操作数据库
+        
+      </div>
+    </a>
   
   
-    </div></section>
+</nav>
+
+
+
+
+
+  
+  
   
 
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
-    </nav>
+  
+
   
 
 
@@ -472,8 +441,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

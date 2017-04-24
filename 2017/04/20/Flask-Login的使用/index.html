@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://dangod.github.io">
-  <title>Archives | 阿蛋的blog</title>
+  <title>在Flask中操作数据库 | 阿蛋的blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="阿蛋的blog">
-<meta property="og:url" content="https://dangod.github.io/archives/index.html">
+  <meta name="description" content="我们使用Flask-Login来实现用户登陆功能，这篇笔记主要介绍Flask-Login扩展的使用，官方文档：Flask-Login">
+<meta name="keywords" content="pyhton,web开发,flask">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在Flask中操作数据库">
+<meta property="og:url" content="https://dangod.github.io/2017/04/20/Flask-Login的使用/index.html">
 <meta property="og:site_name" content="阿蛋的blog">
+<meta property="og:description" content="我们使用Flask-Login来实现用户登陆功能，这篇笔记主要介绍Flask-Login扩展的使用，官方文档：Flask-Login">
+<meta property="og:updated_time" content="2017-04-24T07:00:45.404Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="阿蛋的blog">
+<meta name="twitter:title" content="在Flask中操作数据库">
+<meta name="twitter:description" content="我们使用Flask-Login来实现用户登陆功能，这篇笔记主要介绍Flask-Login扩展的使用，官方文档：Flask-Login">
   
     <link rel="alternative" href="/atom.xml" title="阿蛋的blog" type="application/atom+xml">
   
@@ -153,36 +158,95 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Flask-Login的使用" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      在Flask中操作数据库
+    </h1>
+  
+
+        
+        <a href="/2017/04/20/Flask-Login的使用/" class="archive-article-date">
+  	<time datetime="2017-04-19T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-20</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我们使用Flask-Login来实现用户登陆功能，这篇笔记主要介绍Flask-Login扩展的使用，官方文档：<a href="http://flask-login.readthedocs.org/en/latest/" target="_blank" rel="external">Flask-Login</a><br><a id="more"></a></p>
+<h3 id="1-初始化Flask-Login"><a href="#1-初始化Flask-Login" class="headerlink" title="1. 初始化Flask-Login"></a>1. 初始化Flask-Login</h3><p>对一个使用Flask-Login的应用最重要的一部分就是LoginManager类，你需要创建它，并对它进行初始化用来实现登陆。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">from flask.ext.login import LoginManager</div><div class="line">#创建</div><div class="line">login_manager = LoginManager()</div><div class="line">#初始化</div><div class="line">login_manager.init_app(app)</div></pre></td></tr></table></figure>
+<h3 id="2-回调函数"><a href="#2-回调函数" class="headerlink" title="2. 回调函数"></a>2. 回调函数</h3><p>要使用Flask-Login扩展，你必须在数据库模型文件(models.py)中提供一个回调函数user_loader，这个回调函数用于从会话中存储的用户ID重新加载用户对象。它应该接受一个用户的id作为输入，返回相应的用户对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">@login_manager.user_loader</div><div class="line">def load_user(user_id):</div><div class="line">    return User.get(user_id)</div></pre></td></tr></table></figure>
+<p>如果ID无效的话，它会返回None，而不是抛出异常。</p>
+<h3 id="3-用户类"><a href="#3-用户类" class="headerlink" title="3. 用户类"></a>3. 用户类</h3><p>要使用Flask-Login函数，你用来表示用户的类必须实现以下方法：</p>
+<ul>
+<li>is_authenticated</li>
+<li>is_active</li>
+<li>is_anonymous</li>
+<li>get_id()</li>
+</ul>
+<p>如果你不想手动定义这些方法，Flask-Login提供了UserMixin类，你只要继承这个类就行，它提供了对这些方法的默认实现。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">from flask.ext.login import UserMixin</div><div class="line">class User(UserMixin, db.Model):</div><div class="line">    ....</div></pre></td></tr></table></figure>
+<h3 id="4-用户登陆登出"><a href="#4-用户登陆登出" class="headerlink" title="4. 用户登陆登出"></a>4. 用户登陆登出</h3><h4 id="4-1-用户登陆"><a href="#4-1-用户登陆" class="headerlink" title="4.1 用户登陆"></a>4.1 用户登陆</h4><h5 id="4-1-1-login-user函数"><a href="#4-1-1-login-user函数" class="headerlink" title="4.1.1 login_user函数"></a>4.1.1 login_user函数</h5><p>通过验证之后，你可以使用login_user函数让用户登陆。<br>next参数的作用是，当你未登录时，访问一个需要登陆才能访问的URL，网站会先跳转到登陆页面让你登陆，而你之前想访问的URL则被保存在next参数内，这个参数可从request.args字典中读取，在你登陆之后会自动跳转到你之前想要访问的URL而不是首页。必须在程序中验证next参数的值，如果不验证的话，你的应用将会受到重定向的攻击。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">@app.route(&apos;/login&apos;, methods=[&apos;GET&apos;, &apos;POST&apos;])</div><div class="line">def login():</div><div class="line">    form=LoginForm()</div><div class="line">    if form.validate_on_submit():</div><div class="line">        ...</div><div class="line">        login_user(user)</div><div class="line">        next = flask.request.args.get(&apos;next&apos;)</div><div class="line">        if not next_is_valid(next):</div><div class="line">            return flask.abort(400)</div><div class="line">        return flask.redirect(next or flask.url_for(&apos;index&apos;))</div><div class="line">    return flask.render_template(&apos;login.html&apos;, form=form)</div></pre></td></tr></table></figure>
+<h5 id="4-1-2-login-required装饰器"><a href="#4-1-2-login-required装饰器" class="headerlink" title="4.1.2 @login_required装饰器"></a>4.1.2 @login_required装饰器</h5><p>如果你想设置某个视图函数是需要登陆才能访问的，可以使用@login_required装饰器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@app.route(&apos;/index&apos;)</div><div class="line">@login_required</div><div class="line">def index():</div><div class="line">    ....</div></pre></td></tr></table></figure>
+<p>这样，你就需要登陆要访问index页面。</p>
+<h5 id="4-1-3-定制登陆过程"><a href="#4-1-3-定制登陆过程" class="headerlink" title="4.1.3 定制登陆过程"></a>4.1.3 定制登陆过程</h5><p>如果未登录的用户尝试访问一个login_required装饰的视图函数，Flask-Login会闪现一条消息并且重定向到登录视图提醒你登陆。(如果未设置登录视图，它将会以401 错误退出)。</p>
+<p>登陆视图的名称可以用Login_Manager.login_view来设置。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">login_manager.login_view = &apos;auth.login&apos;</div></pre></td></tr></table></figure>
+<p>默认闪现的消息是Please log in to access this page.。要自定义该消息，可以设置LoginManager.login_message。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">login_manager.login_message = &apos;请登录后访问&apos;</div></pre></td></tr></table></figure>
+<p>要自定义消息分类的话，可以设置LoginManager.login_message_category。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">login_manager.login_message_category = &apos;info&apos;</div></pre></td></tr></table></figure>
+<p>还可以使用Request Loader定制登陆，详情请参阅官方文档。</p>
+<h4 id="4-2-用户登出"><a href="#4-2-用户登出" class="headerlink" title="4.2 用户登出"></a>4.2 用户登出</h4><p>用户登出就简单多了，只需要调用logout_user函数即可，用户会被登出，且会话产生的cookie会被清理干净。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@app.route(&apos;/logout&apos;)</div><div class="line">@login_required</div><div class="line">def logout():</div><div class="line">    logout_user()</div><div class="line">    return flask.redirect(&apos;index&apos;)</div></pre></td></tr></table></figure>
+<h3 id="5-匿名用户"><a href="#5-匿名用户" class="headerlink" title="5. 匿名用户"></a>5. 匿名用户</h3><p>默认情况下，当一个用户没有真正的登陆，current_user被设置成一个AnonymousUserMixin对象。它有如下的属性和方法：</p>
+<ul>
+<li>is_active和is_authenticated的值为False</li>
+<li>is_anonymous的值为True</li>
+<li>get_id()返回None<br>如果需要为匿名用户定制一些需求，你可以向LoginManager提供一个创建匿名用户的回调：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">login_manager.anonymous_user = MyAnonymousUser</div></pre></td></tr></table></figure>
+<h3 id="6-记住我"><a href="#6-记住我" class="headerlink" title="6. 记住我"></a>6. 记住我</h3><p>只要把remember传递给login_user，Flask-Login会自动处理。但你也可以提供额外的设置来增强你记住的cookie的安全性。详情请参阅官方文档。</p>
+<h3 id="7-会话保护"><a href="#7-会话保护" class="headerlink" title="7. 会话保护"></a>7. 会话保护</h3><p>当上述特性保护“记住我”令牌免遭cookie窃取时，会话cookie仍然是脆弱的。Flask-Login 包含了会话保护来帮助阻止用户会话被盗用。<br>你可以在LoginManager上和应用配置中配置会话保护。如果它被启用，它可以在basic或strong两种模式中运行。要在LoginManager上设置它，设置session_protection属性为“basic” 或 “strong”或”None”(禁用)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">login_manager.session_protection = &apos;strong&apos;</div></pre></td></tr></table></figure>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/04/20/Flask-Login的使用/" class="archive-article-date">
-  	<time datetime="2017-04-19T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/04/20/Flask-Login的使用/">在Flask中操作数据库</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -202,7 +266,7 @@
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -215,240 +279,95 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://dangod.github.io/2017/04/20/Flask-Login的使用/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/04/20/Flask入门小结/" class="archive-article-date">
-  	<time datetime="2017-04-19T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-20</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/04/20/Flask入门小结/">在Flask中操作数据库</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">pyhton</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">web开发</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">flask</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/pythonflask/" class="article-tag-list-link color3">python flask</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/04/20/在Flask中操作数据库/" class="archive-article-date">
-  	<time datetime="2017-04-19T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/04/20/在Flask中操作数据库/">在Flask中操作数据库</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">pyhton</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">web开发</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">flask</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/pythonflask/" class="article-tag-list-link color3">python flask</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/04/10/自动获取文件里IP的shell脚本/" class="archive-article-date">
-  	<time datetime="2017-04-09T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/04/10/自动获取文件里IP的shell脚本/">自动获取文件里IP的shell脚本</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">运维</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/分配IP脚本/" class="article-tag-list-link color2">分配IP脚本</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/04/08/HTTP简介/" class="archive-article-date">
-  	<time datetime="2017-04-07T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/04/08/HTTP简介/">Http简介</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">http</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/http协议/" class="article-tag-list-link color2">http协议</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+    <a href="/2017/04/10/自动获取文件里IP的shell脚本/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          自动获取文件里IP的shell脚本
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2017/04/20/Flask入门小结/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">在Flask中操作数据库</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
-    </nav>
+  
+
   
 
 
@@ -472,8 +391,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

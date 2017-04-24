@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://dangod.github.io">
-  <title>centos分配IP脚本 | 阿蛋的blog</title>
+  <title>在Flask中操作数据库 | 阿蛋的blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="常常有客户的centos服务器需要分配15个IP甚至30个IP。每次需要手动分配十分麻烦，于是花了一天时间学了shell脚本，写了这个脚本。12345678910111213141516#!/bin/bashread -p &amp;quot;The IP numbers: &amp;quot; numwhile [[ $num -gt 0 ]]do    read -p &amp;quot;Please enter I">
-<meta name="keywords" content="linux,运维,shell">
+  <meta name="description" content="这篇笔记是对于使用Flask开发网站过程的一些总结，仅仅是一些很浅显的部分，不涉及具体实现，而是试图提炼出一些常用的，项目设计层面的东西。">
+<meta name="keywords" content="pyhton,web开发,flask">
 <meta property="og:type" content="article">
-<meta property="og:title" content="centos分配IP脚本">
-<meta property="og:url" content="https://dangod.github.io/2017/04/06/centos分配IP脚本/index.html">
+<meta property="og:title" content="在Flask中操作数据库">
+<meta property="og:url" content="https://dangod.github.io/2017/04/20/Flask入门小结/index.html">
 <meta property="og:site_name" content="阿蛋的blog">
-<meta property="og:description" content="常常有客户的centos服务器需要分配15个IP甚至30个IP。每次需要手动分配十分麻烦，于是花了一天时间学了shell脚本，写了这个脚本。12345678910111213141516#!/bin/bashread -p &amp;quot;The IP numbers: &amp;quot; numwhile [[ $num -gt 0 ]]do    read -p &amp;quot;Please enter I">
-<meta property="og:updated_time" content="2017-04-10T07:52:01.715Z">
+<meta property="og:description" content="这篇笔记是对于使用Flask开发网站过程的一些总结，仅仅是一些很浅显的部分，不涉及具体实现，而是试图提炼出一些常用的，项目设计层面的东西。">
+<meta property="og:updated_time" content="2017-04-24T07:00:16.882Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="centos分配IP脚本">
-<meta name="twitter:description" content="常常有客户的centos服务器需要分配15个IP甚至30个IP。每次需要手动分配十分麻烦，于是花了一天时间学了shell脚本，写了这个脚本。12345678910111213141516#!/bin/bashread -p &amp;quot;The IP numbers: &amp;quot; numwhile [[ $num -gt 0 ]]do    read -p &amp;quot;Please enter I">
+<meta name="twitter:title" content="在Flask中操作数据库">
+<meta name="twitter:description" content="这篇笔记是对于使用Flask开发网站过程的一些总结，仅仅是一些很浅显的部分，不涉及具体实现，而是试图提炼出一些常用的，项目设计层面的东西。">
   
     <link rel="alternative" href="/atom.xml" title="阿蛋的blog" type="application/atom+xml">
   
@@ -158,28 +158,116 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-centos分配IP脚本" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Flask入门小结" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      centos分配IP脚本
+      在Flask中操作数据库
     </h1>
   
 
         
-        <a href="/2017/04/06/centos分配IP脚本/" class="archive-article-date">
-  	<time datetime="2017-04-05T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-06</time>
+        <a href="/2017/04/20/Flask入门小结/" class="archive-article-date">
+  	<time datetime="2017-04-19T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-20</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h6 id="常常有客户的centos服务器需要分配15个IP甚至30个IP。每次需要手动分配十分麻烦，于是花了一天时间学了shell脚本，写了这个脚本。"><a href="#常常有客户的centos服务器需要分配15个IP甚至30个IP。每次需要手动分配十分麻烦，于是花了一天时间学了shell脚本，写了这个脚本。" class="headerlink" title="常常有客户的centos服务器需要分配15个IP甚至30个IP。每次需要手动分配十分麻烦，于是花了一天时间学了shell脚本，写了这个脚本。"></a>常常有客户的centos服务器需要分配15个IP甚至30个IP。每次需要手动分配十分麻烦，于是花了一天时间学了shell脚本，写了这个脚本。</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">read -p &quot;The IP numbers: &quot; num</div><div class="line">while [[ $num -gt 0 ]]</div><div class="line">do</div><div class="line">    read -p &quot;Please enter IP Address :&quot; ipaddr</div><div class="line">    touch /etc/sysconfig/network-scripts/ifcfg-eth0:$num</div><div class="line">    ncf=/etc/sysconfig/network-scripts/ifcfg-eth0:$num</div><div class="line">    echo DEVICE=eth0:$num &gt;$ncf</div><div class="line">    echo TYPE=Ethernet &gt;&gt;$ncf</div><div class="line">    echo BOOTPROTO=static &gt;&gt;$ncf</div><div class="line">    echo IPADDR=$ipaddr &gt;&gt;$ncf</div><div class="line">    echo NETMASK=255.255.255.192 &gt;&gt;$ncf</div><div class="line">    echo ONBOOT=yes &gt;&gt;$ncf</div><div class="line">    num=`expr $num - 1`</div><div class="line">done</div><div class="line">service network restart</div></pre></td></tr></table></figure>
-<h6 id="由于公司的掩码都是255-255-255-192于是直接用了，只要输入需要分配的IP个数和IP地址即可。"><a href="#由于公司的掩码都是255-255-255-192于是直接用了，只要输入需要分配的IP个数和IP地址即可。" class="headerlink" title="由于公司的掩码都是255.255.255.192于是直接用了，只要输入需要分配的IP个数和IP地址即可。"></a>由于公司的掩码都是255.255.255.192于是直接用了，只要输入需要分配的IP个数和IP地址即可。</h6><h6 id="写完这个脚本之后马上就派上用场了，但是还是觉得手动输入IP太麻烦，下次有时间再写一个直接从另一个文件提取IP地址的脚本吧。"><a href="#写完这个脚本之后马上就派上用场了，但是还是觉得手动输入IP太麻烦，下次有时间再写一个直接从另一个文件提取IP地址的脚本吧。" class="headerlink" title="写完这个脚本之后马上就派上用场了，但是还是觉得手动输入IP太麻烦，下次有时间再写一个直接从另一个文件提取IP地址的脚本吧。"></a>写完这个脚本之后马上就派上用场了，但是还是觉得手动输入IP太麻烦，下次有时间再写一个直接从另一个文件提取IP地址的脚本吧。</h6>
+        <p>这篇笔记是对于使用Flask开发网站过程的一些总结，仅仅是一些很浅显的部分，不涉及具体实现，而是试图提炼出一些常用的，项目设计层面的东西。</p>
+<hr>
+<a id="more"></a>
+<h3 id="组织项目"><a href="#组织项目" class="headerlink" title="组织项目"></a>组织项目</h3><p>我习惯使用Python包的形式来进行项目文件管理，因为单个文件只适合用来开发很小的练手项目(几百行代码搞定)，而现实中往往需要上万行的代码来开发一个中型的项目，更别说是大型网站项目了。</p>
+<p>一般来说，项目包的结构是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">Imitation-weibo/</div><div class="line">    config.py           # 配置文件</div><div class="line">    requirements.txt    # 应用依赖的所有Python包</div><div class="line">    manage.py           # 启动文件</div><div class="line">    instance/           # 存储不能公开的配置，比如SECRET_KEY等</div><div class="line">        config.py</div><div class="line">    app/                # 应用所在的包</div><div class="line">        __init__.py</div><div class="line">        views.py        # 路由</div><div class="line">        forms.py        # 表单</div><div class="line">        models.py       # 应用模型</div><div class="line">        static/         # 静态文件，包括图标，css等文件</div><div class="line">            *.icon etc</div><div class="line">        templates/      # 模板文件</div><div class="line">            *.html</div></pre></td></tr></table></figure>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><h4 id="简单的配置"><a href="#简单的配置" class="headerlink" title="简单的配置"></a>简单的配置</h4><p>先随意写一个配置文件config.py:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">DEBUG = True</div><div class="line">SECRET_KEY = &apos;NI CAI A&apos;</div></pre></td></tr></table></figure></p>
+<p>可以在应用中导入配置并访问：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">from flask import Flask</div><div class="line">app = Flask(__name__)</div><div class="line"># 导入配置</div><div class="line">app.config.from_object(&apos;config&apos;)</div><div class="line"># 在这之后就可以通过app.config[&apos;DEBUG&apos;]访问相应的变量了</div></pre></td></tr></table></figure>
+<h4 id="重要的配置变量"><a href="#重要的配置变量" class="headerlink" title="重要的配置变量"></a>重要的配置变量</h4><p>有几个配置变量比较重要，基本上是所有的web应用都需要使用的。</p>
+<ul>
+<li>DEBUG，在调试错误时能够给出信息的工具。在开发与环境下应该设置为True；在生产环境下必须设置为False，否则任意用户都能在你的服务器上运行Python代码。</li>
+<li>SECRET_KEY，Flask用这个密钥对cookies以及其他变量进行加密。</li>
+</ul>
+<p>如果你不想你的配置变量被他人知道，那么最好将这些变量定义放置在instance文件夹中，并保持在版本控制之外。<br>如果想要加载instance文件夹中的配置变量，可以使用如下方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># 首先要设置instance_relative_config为True</div><div class="line">app = Flask(__name__, instance_relative_config=True)</div><div class="line">app.config.from_object(&apos;config&apos;)</div><div class="line"># 然后用以下语句查看在instance文件夹中的特殊文件</div><div class="line">app.config.from_pyfile(&apos;config.py&apos;)</div></pre></td></tr></table></figure>
+<h4 id="依照环境变量来配置"><a href="#依照环境变量来配置" class="headerlink" title="依照环境变量来配置"></a>依照环境变量来配置</h4><p>在应用有多个配置共存的情况下，可以把所有的文件都放置到config包之下，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">config/</div><div class="line">    __init__.py</div><div class="line">    default.py</div><div class="line">    production.py</div><div class="line">    development.py</div></pre></td></tr></table></figure>
+<p>然后通过如下方式导入配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">app = Flask(__name__, instance_relative_config=True)</div><div class="line">app.config.from_object(&apos;config.default&apos;)</div><div class="line">app.config.from_pyfile(&apos;config.py&apos;)</div><div class="line"># 加载由环境变量APP_CONFIG_FILE指定的文件</div><div class="line">app.config.from_envvar(&apos;APP_CONFIG_FILE&apos;)</div></pre></td></tr></table></figure>
+<h3 id="视图和路由"><a href="#视图和路由" class="headerlink" title="视图和路由"></a>视图和路由</h3><h4 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h4><p>我们可以使用flask-cache扩展实现缓存，它提供了一个可以用来缓存某个响应一段时间的装饰器。也可以将flask-cache配置成和后台缓存一起使用，强烈推荐Redis。假设flask-cache已经配置好，使用方式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">from flask_cache import Cache</div><div class="line">from flask import Flask, render_template</div><div class="line">app = Flask()</div><div class="line">@app.route(&apos;/&apos;)</div><div class="line">@cache.cached(timeout=60)</div><div class="line">def index():</div><div class="line">    # ...</div><div class="line">    return render_template(</div><div class="line">        &apos;index.html&apos;,</div><div class="line">        lastest_posts = lastest_posts,</div><div class="line">        recent_user = recent_user</div><div class="line">        recent_photos = rencent_photos</div><div class="line">        )</div></pre></td></tr></table></figure>
+<p>现在这个函数将会在每60秒最多运行一次。响应的结果会被保存在缓存中，并可以让期间的每一个请求获取。</p>
+<h4 id="自定义装饰器"><a href="#自定义装饰器" class="headerlink" title="自定义装饰器"></a>自定义装饰器</h4><p>自定义装饰器分为带参数和不带参数两种：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"># 不带参数</div><div class="line">def decorator(func):</div><div class="line">    @wraps(func)</div><div class="line">    def decorator_function(*args, **kwargs):</div><div class="line">        # ...</div><div class="line">        return func(*args, **kwargs)</div><div class="line">    return decorator_function</div></pre></td></tr></table></figure>
+<ul>
+<li>当用@decorator装饰一个函数时，decorator()被调用，被装饰的函数作为一个参数被传递进来。</li>
+<li>@wraps是一个装饰器，告诉Python解释器函数decorator_function()包装了视图函数func()。</li>
+<li>decorator_function()将截取原本传递给视图函数func()的参数，然后做一些其他的处理。</li>
+<li>最后decorator_function()将原来的参数传递给视图函数func()进行处理。</li>
+</ul>
+<h1 id="带参数的装饰器"><a href="#带参数的装饰器" class="headerlink" title="带参数的装饰器"></a>带参数的装饰器</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">def decorator(param):</div><div class="line">    def decorator_func(func):</div><div class="line">        @wraps(func)</div><div class="line">        def decorator_function(*args, **kwargs):</div><div class="line">            return func(*args, **kwargs)</div><div class="line">        return decorator_function</div><div class="line">    return decorator_func</div></pre></td></tr></table></figure>
+<p>使用的时候可以用@decorator(param)，param表示你需要传入的参数。</p>
+<h3 id="蓝本"><a href="#蓝本" class="headerlink" title="蓝本"></a>蓝本</h3><p>蓝本定义了可用于单个应用的视图、模板、静态文件等等的集合，它允许你将不同的路由分开，提供一些规范，同时也可以要求蓝本针对不同路由应用不同的静态文件，导致不同的URL出现不一样的网站界面。</p>
+<p>Flask中，蓝本有以下用途：</p>
+<ul>
+<li>把一个应用分解为一套蓝本。这是针对大型应用的理想方案：一个项目可以实例化一个 应用，初始化多个扩展，并注册许多蓝本。</li>
+<li>在一个应用的 URL 前缀和（或）子域上注册一个蓝本。 URL 前缀和（或）子域的参数 成为蓝本中所有视图的通用视图参数（缺省情况下）。</li>
+<li>使用不同的 URL 规则在应用中多次注册蓝本。</li>
+<li>通过蓝本提供模板过滤器、静态文件、模板和其他工具。蓝本不必执行应用或视图 函数。</li>
+<li>当初始化一个 Flask 扩展时，为以上任意一种用途注册一个蓝本。</li>
+</ul>
+<p>Flask中的蓝本并不是一个可插拔的应用，因为它不是一个真正的应用，而是一套可以注册在应用中的操作，并且可以注册多次。那么为什么不使用多个应用对象呢？可以使用多个应用对象，但是这样会导致每个应用都有自己独立的配置，且只能在WSGI层中进行应用管理。</p>
+<p>如果使用蓝本，那么应用可以在Flask层中进行管理，共享配置，通过注册按需改变应用对象。蓝本的缺点是一旦应用被创建后，只有销毁整个应用对象才能注销蓝本。</p>
+<h4 id="功能式架构"><a href="#功能式架构" class="headerlink" title="功能式架构"></a>功能式架构</h4><p>在功能式架构中，按照每部分代码的功能来组织应用，所有的模板放到同一个文件夹中，静态文件放在另一个文件夹中，而视图放在第三个文件夹中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">app/</div><div class="line">    __init__.py</div><div class="line">    static/</div><div class="line">        ...</div><div class="line">    templates/</div><div class="line">        ...</div><div class="line">    views.py/</div><div class="line">        auth.py</div><div class="line">        main.py</div><div class="line">        ....</div></pre></td></tr></table></figure>
+<p>在views文件夹下的每一个.py文件都是一个蓝本，需要在Flask对象中注册后才能使用。<br>使用功能式架构，创建蓝本时候非常方便，模板和静态文件文件夹是固定的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">from flask import Blueprint</div><div class="line">main = Blueprint(&apos;main&apos;, __name__)</div></pre></td></tr></table></figure>
+<p>分区式架构<br>在分区式架构中，按照每一部分所属的蓝本来组织应用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">app/</div><div class="line">    __init__.py</div><div class="line">    auth/</div><div class="line">        __init__.py</div><div class="line">        views.py</div><div class="line">        static/</div><div class="line">        templates/</div><div class="line">    main/</div><div class="line">        __init__.py</div><div class="line">        views.py</div><div class="line">        static/</div><div class="line">        templates/</div></pre></td></tr></table></figure>
+<p>每一个app/之下的文件夹都是一个独立的蓝本，所有的蓝本都通过顶层<strong>init</strong>.py注册到Flask对象中。</p>
+<p>使用分区式架构，创建蓝本时候需要指明模板和静态文件文件夹：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">from flask import Blueprint</div><div class="line">main = Blueprint(</div><div class="line">                    &apos;main&apos;,</div><div class="line">                    __name__,</div><div class="line">                    template_folder=&apos;templates&apos;,</div><div class="line">                    static_folder=&apos;static&apos;)</div></pre></td></tr></table></figure>
+<p>如果你的网站应用有很多页面差别很大，可重用的静态文件和模板非常少，那么建议采用分区式架构；如果你的网站应用的组件之间联系较为紧密，可以共用很多的静态文件和模板，使用功能式架构会更好。</p>
+<h4 id="使用URL前缀"><a href="#使用URL前缀" class="headerlink" title="使用URL前缀"></a>使用URL前缀</h4><p>蓝本允许我们定义静态的或动态的前缀。举个栗子，我们告诉Flask所有蓝本中的路由应该以/auth作为前缀，这样是一个静态前缀；也可以传入参数，在URL中对应片段中输入的文本将决定我们输出的视图，这样是一个动态前缀。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># 静态前缀，其URL为：http://..../auth</div><div class="line">app.register_blueprint(auth, url_prefix=&apos;/auth&apos;)</div><div class="line"># 动态前缀，其URL为：http://..../auth/&lt;username&gt;，&lt;username&gt;取决于输入</div><div class="line">app.register_blueprint(auth, url_prefix=&apos;/auth/&lt;username&gt;&apos;)</div></pre></td></tr></table></figure>
+<h3 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h3><p>对于模板文件夹，其放置的最佳位置是app/templates，直接放置在包文件夹下，模板的结构应当平行于对应的路由的结构。</p>
+<h4 id="模板继承"><a href="#模板继承" class="headerlink" title="模板继承"></a>模板继承</h4><p>为了提高模板的可重用性，最好定义几个适用于所有子模板的主题结构的基础摸板。然后通过extends和block标签实现继承。在子模板中，可以拓展父模板并定义block里面的内容，这和Python类的继承基本一致。并且，在模板中也有super()函数，可以在子模板中加载父模板中这个block的内容。</p>
+<h4 id="宏模板"><a href="#宏模板" class="headerlink" title="宏模板"></a>宏模板</h4><p>除了使用基础模板外，还可以将反复出现的代码片段抽象成宏，它提供了模块化模板代码的一种方式。</p>
+<p>来看一下具体实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&#123;% from &quot;macros.html&quot; import nav_link with context %&#125;</div><div class="line">&#123;% block title %&#125;Title&#123;% endblock %&#125;</div><div class="line">&lt;body&gt;</div><div class="line">    &lt;ul class=&quot;nav-list&quot;&gt;</div><div class="line">        &#123;&#123; nav-link(&quot;home&quot;, &quot;Home&quot;) &#125;&#125;</div><div class="line">        &#123;&#123; nav-link(&quot;about&quot;, &quot;About&quot;) &#125;&#125;</div><div class="line">        &#123;&#123; nav-link(&quot;contact&quot;, &quot;Contact&quot;) &#125;&#125;</div><div class="line">    &lt;/ul&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
+<p>这个文件里调用了尚未定义的宏(nav-link)，并传递两个参数给它，接下来我们在macros.html中定义宏：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;% macro nav_link(endpoint, text) %&#125;</div><div class="line">&lt;!-- 一些要处理的内容 --&gt;</div><div class="line">&#123;% endmacro %&#125;</div></pre></td></tr></table></figure>
+<p>注意：我们在import语句中加入了with_context。jinja上下文包括了通过render_template()函数传递的参数以及在我们Python代码的jinja环境上下文，这些变量能够用于模板的渲染。</p>
+<h4 id="静态文件"><a href="#静态文件" class="headerlink" title="静态文件"></a>静态文件</h4><p>静态文件是那些不会改变的文件，一般情况下，这包括CSS文件，JavaScript文件和一些图片、图标文件等等。我们一般都会把静态文件放置在static/文件夹下面，并且可以把来自于扩展的静态文件归类到static/lib/目录下，方便管理。</p>
+<h4 id="使用flask-assets扩展来管理静态文件"><a href="#使用flask-assets扩展来管理静态文件" class="headerlink" title="使用flask-assets扩展来管理静态文件"></a>使用flask-assets扩展来管理静态文件</h4><p>flask-assets是一个管理静态文件的插件，提供了两种非常有用的特性：<br>允许Python代码中定义多组可以同时插入模板的静态文件。<br>允许预处理这些静态文件。<br>假设你现在的static文件夹结构是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">static/</div><div class="line">    css/</div><div class="line">        lib/</div><div class="line">            reset.css</div><div class="line">        common.css</div><div class="line">        auth.css</div><div class="line">        main.css</div><div class="line">    js/</div><div class="line">        lib/</div><div class="line">            reset.js</div><div class="line">        common.js</div><div class="line">        auth.js</div><div class="line">        main.js</div><div class="line">    img/</div><div class="line">        favicon.ico</div></pre></td></tr></table></figure>
+<p>我们的应用有auth和main两个部分，每个部分有一个JavaScript和CSS分组。将所有的静态文件放入util包中的assets模块。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"># app/util/assets.py</div><div class="line">from flask_assets import Bundle, Environment</div><div class="line">from .. import app</div><div class="line">bundles = &#123;</div><div class="line">			&apos;auth_js&apos;: Bundle(</div><div class="line">				&apos;js/lib/reset.js&apos;,</div><div class="line">				&apos;js/auth.js&apos;,</div><div class="line">				output=&apos;gen/auth.js&apos;),</div><div class="line">			&apos;auth_css&apos;: Bundle(</div><div class="line">				&apos;js/lib/reset.cwss&apos;,</div><div class="line">				&apos;js/auth.css&apos;,</div><div class="line">				output=&apos;gen/auth.css&apos;),</div><div class="line">			&apos;main_js&apos;: Bundle(</div><div class="line">				&apos;js/lib/reset.js&apos;,</div><div class="line">				&apos;js/main.js&apos;,</div><div class="line">				output=&apos;gen/main.js&apos;),</div><div class="line">			&apos;main_css&apos;: Bundle(</div><div class="line">				&apos;js/lib/reset.css&apos;,</div><div class="line">				&apos;js/main.css&apos;,</div><div class="line">				output=&apos;gen/main.css&apos;),</div><div class="line">    &#125;</div><div class="line">assets = Environment(app)</div><div class="line">assets.register(bundles)</div></pre></td></tr></table></figure>
+<p>flask-asset会自动按照被列出来的顺序合并静态文件，并且在最后把分组注册到util.assets中，使得我们可以在<strong>init</strong>.py中导入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">from .util import assets</div></pre></td></tr></table></figure>
+<p>然后我们就可以在模板中使用静态文件了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;% assets &apos;auth.js&apos; %&#125;</div><div class="line">&lt;!-- 填写需要的内容 --&gt;</div><div class="line">&#123;% endassets %&#125;</div><div class="line">&#123;% assets &apos;auth.css&apos; %&#125;</div><div class="line">&lt;!-- 填写需要的内容 --&gt;</div><div class="line">&#123;% endassets %&#125;</div></pre></td></tr></table></figure>
+<h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><p>SQLAlchemy是一个ORM，基于对目标数据库的原生SQL抽象，它提供了与很多数据库引擎一致的API。在Flask应用中，我们大多数时候使用的是flask-sqlalchemy这个扩展来管理数据库。</p>
+<p>首先，你要创建并初始化数据库对象：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">from flask_sqlalchemy import SQLAlchemy</div><div class="line">from flask import Flask</div><div class="line">app = Flask(__name__, instance_relative_config=True)</div><div class="line"># 配置</div><div class="line">app.config.from_object(&apos;config&apos;)</div><div class="line">app.config.from_pyfile(&apos;config.py&apos;)</div><div class="line"># 创建并初始化数据库对象</div><div class="line">db.SQLAlchemy(app)</div></pre></td></tr></table></figure>
+<p>然后你就可以定义数据库模型，并通过命令db.create_all()创建数据库模型中的表。<br>数据库模型并非一直不变的，很多时候都需要进行修改，Alembic是专用于SQLAlchemy的数据库迁移工具。它允许你保持你的数据库模式的版本历史，这样你就可以升级到一个新的模式，或者降级到旧的模式.</p>
+<p>通过初始化的almbic init命令，可以创建一个迁移环境，自动生成的alembic/文件夹中包括了在版本间迁移数据的脚本。同时会有一个包括配置信息的alembic.ini文件。一旦我们的迁移脚本已经准备就绪，我们只需运行alembic upgrade head来迁移我们的数据到最新版本。</p>
+<h3 id="表单"><a href="#表单" class="headerlink" title="表单"></a>表单</h3><p>表单是允许用户与web应用交互的基本元素，Flask通过flask-wtf扩展应用WTForms包来处理表单。</p>
+<p>首先，你要定义一个表单类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">from flask_wtf import Form</div><div class="line">from wtforms import StringField, PasswordField</div><div class="line">from wtforms.validators import DataRequired, Email</div><div class="line">class EmailPasswordForm(Form):</div><div class="line">    email = StringField(&apos;Email&apos;, validators=[DataRequired(), Email()])</div><div class="line">    password = PasswordField(&apos;Password&apos;, validators=[DataRequired()])</div></pre></td></tr></table></figure>
+<p>然后可以在路由中验证表单：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">import EmailPasswordForm</div><div class="line">@auth.route(&apos;/login&apos;, methods=[&apos;GET&apos;, &apos;POST&apos;])</div><div class="line">def login():</div><div class="line">    form = EmailPasswordForm()</div><div class="line">    if form.validate_on_submit():</div><div class="line">        # ...</div></pre></td></tr></table></figure>
+<p>在模板中渲染表单：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line">    &#123;&#123; form.email &#125;&#125;</div><div class="line">    &#123;&#123; form.password &#125;&#125;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
+<p>flask-wtf提供CSRF防护的功能，我们在模板中使用CSRF防护：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line">    &#123;&#123; form.csrf_token &#125;&#125;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
+<h3 id="密码安全"><a href="#密码安全" class="headerlink" title="密码安全"></a>密码安全</h3><p>在Web应用中，不应该明文保存密码，而是要用Bcrypt算法hash密码。flask-bcrypt扩展提供了应用bcrypt包的功能。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">from flask_bcrypt import Bcrypt, generate_password_hash</div><div class="line"># 创建并初始化扩展</div><div class="line">bcrypt = Bcrypt(app)</div><div class="line"># 生成密码hash，第二个参数为round次数</div><div class="line"># round值越大，说明加密的层数越多，加密越耗时间，越难破解</div><div class="line">generate_password_hash(&apos;password&apos;, 12)</div><div class="line"># 验证密码</div><div class="line">bcrypt.check_password_hash(password_hash, password)</div></pre></td></tr></table></figure>
+
       
 
       
@@ -213,15 +301,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">pyhton</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">运维</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">web开发</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">flask</a>
         		</li>
       		
 		</ul>
@@ -233,7 +321,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/分配IP脚本/" class="article-tag-list-link color2">分配IP脚本</a>
+        			<a href="/categories/pythonflask/" class="article-tag-list-link color3">python flask</a>
         		</li>
       		
 		</ul>
@@ -288,7 +376,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=https://dangod.github.io/2017/04/06/centos分配IP脚本/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://dangod.github.io/2017/04/20/Flask入门小结/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -302,9 +390,18 @@
   
 <nav id="article-nav">
   
+    <a href="/2017/04/20/Flask-Login的使用/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          在Flask中操作数据库
+        
+      </div>
+    </a>
   
-    <a href="/2017/04/08/HTTP简介/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Http简介</div>
+  
+    <a href="/2017/04/20/在Flask中操作数据库/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">在Flask中操作数据库</div>
       <i class="icon-circle-right"></i>
     </a>
   
