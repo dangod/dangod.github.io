@@ -6,18 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://dangod.github.io">
-  <title>在Flask中操作数据库 | 阿蛋的blog</title>
+  <title>Flask-Login的使用 | 阿蛋的blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="我们使用Flask-Login来实现用户登陆功能，这篇笔记主要介绍Flask-Login扩展的使用，官方文档：Flask-Login">
 <meta name="keywords" content="pyhton,web开发,flask">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在Flask中操作数据库">
+<meta property="og:title" content="Flask-Login的使用">
 <meta property="og:url" content="https://dangod.github.io/2017/04/20/Flask-Login的使用/index.html">
 <meta property="og:site_name" content="阿蛋的blog">
 <meta property="og:description" content="我们使用Flask-Login来实现用户登陆功能，这篇笔记主要介绍Flask-Login扩展的使用，官方文档：Flask-Login">
-<meta property="og:updated_time" content="2017-04-24T07:00:45.404Z">
+<meta property="og:updated_time" content="2017-05-02T08:12:28.455Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在Flask中操作数据库">
+<meta name="twitter:title" content="Flask-Login的使用">
 <meta name="twitter:description" content="我们使用Flask-Login来实现用户登陆功能，这篇笔记主要介绍Flask-Login扩展的使用，官方文档：Flask-Login">
   
     <link rel="alternative" href="/atom.xml" title="阿蛋的blog" type="application/atom+xml">
@@ -47,7 +47,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="https://imgsa.baidu.com/forum/w%3D580/sign=5a3bf90576094b36db921be593cd7c00/f92ae850352ac65c7bae61a9fbf2b21191138aea.jpg" class="js-avatar">
+			<img src="https://imgsa.baidu.com/forum/w%3D580/sign=ddf40bc76c81800a6ee58906813433d6/846a43df8db1cb1345f8ce5bdd54564e93584b23.jpg" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">阿蛋</a></h1>
@@ -107,7 +107,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="https://imgsa.baidu.com/forum/w%3D580/sign=5a3bf90576094b36db921be593cd7c00/f92ae850352ac65c7bae61a9fbf2b21191138aea.jpg" class="js-avatar">
+				<img src="https://imgsa.baidu.com/forum/w%3D580/sign=ddf40bc76c81800a6ee58906813433d6/846a43df8db1cb1345f8ce5bdd54564e93584b23.jpg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">阿蛋</h1>
@@ -165,7 +165,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      在Flask中操作数据库
+      Flask-Login的使用
     </h1>
   
 
@@ -352,7 +352,7 @@
   
   
     <a href="/dangod.github.io/2017/04/20/Flask入门小结/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">在Flask中操作数据库</div>
+      <div class="article-nav-title">Flask入门小结</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -469,6 +469,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">http</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
@@ -478,10 +482,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">http</a>
               </li>
             
             <div class="clearfix"></div>
